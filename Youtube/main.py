@@ -6,7 +6,11 @@ from pytube import YouTube
 def  download_video(url):
     try:
         yt = YouTube(url)
-        print("terminé")
+        print(yt)
+        strems = yt.streams.filter(progressive=True)
+        print(strems)
+        
+
     except :
         print("erreur")
 
