@@ -1,19 +1,17 @@
-from pytube import YouTube
+import yt_dlp
 
 
-#Fonction pour télécharger la video via l'URL de la video
-
-def  download_video(url):
+# Fonction pour télécharger une vidoe Youtube
+def download_video(url):
+    ydl_opts = { 'format': 'best[ext=mp4]'}
     try:
-        yt = YouTube(url)
-        print(yt)
-        strems = yt.streams.filter(progressive=True)
-        print(strems)
-        
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
 
-    except :
-        print("erreur")
+        print('Téléchargemment réussi avec yt-dlp !')
 
+    except Exception as e:
+        print(f"Erreur lors du téléchargemment avec yt-dlp: {e}")
 
-url = "https://youtu.be/w8PVpWxE5_8?si=Q2eijSN3-ni-zwV-"
+url = 'https://youtu.be/9bZkp7q19f0'
 download_video(url)
