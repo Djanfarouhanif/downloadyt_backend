@@ -2,17 +2,16 @@ import yt_dlp
 
 
 # Fonction pour télécharger une vidoe Youtube
-def download_video(url):
-    ydl_opts = { 'format': 'best[ext=mp4]'}
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
+def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
+    ydl_opts = {
+        'outtmpl': output_path,
+        'format': 'best',
+    }
 
-        print('Téléchargemment réussi avec yt-dlp !')
-
-    except Exception as e:
-        print(f"Erreur lors du téléchargemment avec yt-dlp: {e}")
-
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(video_url, download=True)
+        return info_dict.get("title", "video")
+   
 
 # Fonction pour télécharger les audio
 def download_audio(url):
