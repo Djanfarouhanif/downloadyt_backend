@@ -10,7 +10,7 @@ def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(video_url, download=True)
-        return info_dict.get("title", "video")
+        return ydl.prepare_filename(info_dict) # Retourne le chemin complet du fichier telecharge
    
 
 # Fonction pour télécharger les audio
