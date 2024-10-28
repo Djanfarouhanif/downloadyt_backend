@@ -23,11 +23,12 @@ class VideoDownloadView(APIView):
             video_path = download_video(video_url)
             
             # Ouvre le ficher en mode de lecture binaire
-            file_handle = open(video_path, 'rb')
+            with open(video_path, 'rb') as file_handle:
+                # Crée une réponse de fichier pour envoyer le fichier au client
+                response = FileResponse(file_handle, content_type='video/mp4')
+                response['Content-Disposition'] = f'attachment; filename="{os.path.basename(video_path)}"'
+            
 
-            # Crée une réponse de fichier pour envoyer le fichier au client
-            response = FileResponse(file_handle,content_type='video/mp4')
-            response['Content-Dispositon'] = f'attachment; filename="{os.path.basename(video_path)}"'
             
             # Optionnel : Supprimer le fichier après envoi
             os.remove(video_path)
