@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from Youtube.main import download_video
-from django.http import FileResponse
+from django.http import StreamingHttpResponse
 import os
 
 # Create your views here.
@@ -22,14 +22,20 @@ class VideoDownloadView(APIView):
             # Télécharger la vidéo et récupére le chemin du fichier
             video_path = download_video(video_url)
             
-            # Ouvre le ficher en mode de lecture binaire
-            with open(video_path, 'rb') as file_handle:
-                # Crée une réponse de fichier pour envoyer le fichier au client
-                response = FileResponse(file_handle, content_type='video/mp4')
-                response['Content-Disposition'] = f'attachment; filename="{os.path.basename(video_path)}"'
+            # # Ouvre le ficher en mode de lecture binaire
+            # with open(video_path, 'rb') as file_handle:
+            #     # Crée une réponse de fichier pour envoyer le fichier au client
+            #     response = FileResponse(file_handle, content_type='video/mp4')
+            #     response['Content-Disposition'] = f'attachment; filename="{os.path.basename(video_path)}"'
             
-
-            
+            # Utilise StreamingHttpResponse pour le téléchargement
+            def file_iterator(file_path,chunk_size=8192):
+                with open(file_path, 'rb') as f:
+                    while chunk := f.read(chunk_size):
+                        yield chunk
+            # Utilise StreamingHttpResponse pour le téléchargement
+            response = StreamingHttpResponse(file_iterator(video_path), content_type='video/mp4')
+            response['Content-Disposition'] = f'attachment; filename"{os.path.basename(video_path)}"'
             # Optionnel : Supprimer le fichier après envoi
             os.remove(video_path)
 
