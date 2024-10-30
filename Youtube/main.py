@@ -3,6 +3,7 @@ import yt_dlp
 
 # Fonction pour télécharger une vidoe Youtube
 def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
+    print('"""""""""""""""""""""""""')
     ydl_opts = {
         'outtmpl': output_path,
         'format': 'best',
@@ -10,9 +11,14 @@ def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(video_url, download=True)
+        
         return ydl.prepare_filename(info_dict) # Retourne le chemin complet du fichier telecharge
-   
 
+
+
+#--------------------------------------------------------------------
+#---------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------
 # Fonction pour télécharger les audio
 def download_audio(url):
     ydl_opts = {
