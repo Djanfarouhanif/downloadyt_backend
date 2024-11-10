@@ -15,3 +15,6 @@ tzdata==2024.2
 urllib3==2.2.3
 websockets==13.1
 yt-dlp==2024.10.22
+gunicorn
+
+
