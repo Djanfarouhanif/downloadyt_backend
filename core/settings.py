@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*co4*r#p=%_46#*5anx!=2m_06yb^$2xa!bhwo)@u(yjq6&*(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['railway.app']
 
 
 # Application definition
@@ -131,3 +131,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200"
 ]
+
+# configuration pour le deployement
+
+SECRET_KEY = 'y6n!x54ya621o%b=x^5+gyj2+*s=0iwy(w9c-u2^bsyhghuolg'

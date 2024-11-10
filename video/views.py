@@ -24,7 +24,7 @@ class VideoDownloadView(APIView):
             # Télécharger la vidéo et récupére le chemin du fichier
             print("reussi")
             video_path = download_video(video_url)
-          
+            #video_path = '../videos/Gazo - PROBATION.mp4'
             if not os.path.exists(video_path):
                 print(f"Erreur: fichier {video_path} introuvable")
                 return Response({"error": "Erreur de téléchargement du fichier."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
