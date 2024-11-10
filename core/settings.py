@@ -132,7 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
-    "https://downyout.netlify.app/"
+    "https://downyout.netlify.app" # Les url qui utilise le backend
 ]
 
 # configuration pour le deployement
