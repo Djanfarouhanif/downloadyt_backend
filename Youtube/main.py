@@ -13,16 +13,30 @@ def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
         info_dict = ydl.extract_info(video_url, download=True)
 
         
-        # Récupérer le titre de la vidéo
-        title = info_dict.get('title', 'Unknow Title')
-
-        # Récupérer la minature
-        thumbnail = info_dict.get('thumbnail')
+        
         
         # Retourner le chemin du fichier et le titre
         file_path = ydl.prepare_filename(info_dict)
         
-        return file_path , title , thumbnail # Retourne le chemin complet du fichier telecharge
+        return file_path # Retourne le chemin complet du fichier telecharge
+
+def videoData(video_url):
+    ydl_opts = {
+        'skip_download': True # Ne pas télécharger la video
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(video_url, download=False)
+        
+        # Récupére le titre de la video
+        title = info_dict.get('title', 'Unknow Title')
+
+        # Récupérer la miniature
+
+        thumbnail = info_dict.get('thumbnail', 'No Thumbnail')
+
+        return title , thumbnail
+
 
 
 
