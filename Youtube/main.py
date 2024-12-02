@@ -12,13 +12,17 @@ def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(video_url, download=True)
 
+        
         # Récupérer le titre de la vidéo
         title = info_dict.get('title', 'Unknow Title')
 
+        # Récupérer la minature
+        thumbnail = info_dict.get('thumbnail')
+        
         # Retourner le chemin du fichier et le titre
         file_path = ydl.prepare_filename(info_dict)
         
-        return file_path, title # Retourne le chemin complet du fichier telecharge
+        return file_path , title , thumbnail # Retourne le chemin complet du fichier telecharge
 
 
 
@@ -41,6 +45,6 @@ def download_audio(url):
         ydl.download([url])
         print('Téléchargement audio réussi !')
 
-# url = ''
+# url = 'https://youtu.be/QQCTR11MSlc?si=u6iQkj6_3Pjc6kZM'
 # download_audio(url)
 #download_video(url)

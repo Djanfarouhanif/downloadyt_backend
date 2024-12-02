@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*co4*r#p=%_46#*5anx!=2m_06yb^$2xa!bhwo)@u(yjq6&*(-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['downloadytbackend-production.up.railway.app']
+ALLOWED_HOSTS = ['downloadytbackend-production.up.railway.app', '*']
 
 
 

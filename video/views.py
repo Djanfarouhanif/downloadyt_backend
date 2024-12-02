@@ -24,7 +24,12 @@ class VideoDownloadView(APIView):
             # Télécharger la vidéo et récupére le chemin du fichier
             print("reussi")
             
-            video_path, title = download_video(video_url)
+            video_data = download_video(video_url)
+            video_path = video_data[0]
+            title = video_data[1]
+            thumbnail = video_data[2]
+            print( thumbnail,'*****************')
+            
             #video_path = '../videos/Gazo - PROBATION.mp4'
             if not os.path.exists(video_path):
                 print(f"Erreur: fichier {video_path} introuvable")
@@ -42,6 +47,7 @@ class VideoDownloadView(APIView):
             response['Content-Disposition'] =  f'attachment; filename="{title}.mp4"'
             response['X-Sendfile'] = 'delete' # En-tête pour indiquer que le fichier doit être suprimer
             response['X-Video-Title'] = title
+            response['X-Thumbnail'] = thumbnail
             # Ajouter la fonction de nettoyage
             response.cleanup = lambda: os.remove(video_path)
 
