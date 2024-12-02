@@ -12,7 +12,7 @@ import os
 class VideoDownloadView(APIView):
     parser_classes = [JSONParser]
 
-    def get(self, request):
+    def post(self, request):
         
         video_url = request.data.get('video_url')
         
@@ -51,11 +51,11 @@ class VideoDownloadView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 class VideoDataView(APIView):
     parser_classes = [JSONParser]
-    def get(self, request):
+    def post(self, request):
         video_url = request.data.get('video_url')
 
         if not video_url:
-            return Response({"erreur": "L'URL de la video manque"}, stauts=status.HTTP_400_BAD_REQUEST)
+            return Response({"erreur": "L'URL de la video manque"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             # Télécharger les informations de la video
