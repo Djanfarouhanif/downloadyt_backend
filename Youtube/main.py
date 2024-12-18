@@ -5,20 +5,29 @@ import yt_dlp
 def download_video(video_url, output_path='videos/%(title)s.%(ext)s'):
     print('"""""""""""""""""""""""""')
     ydl_opts = {
-        'outtmpl': output_path,
-        'format': 'best',
+        'outtmpl': output_path, # Modéle de nom de fichier
+        'format': 'bv+ba/b', # Sélectinner le meilleur format disponible
+        'noplaylist': True, # Si c'est une playlist, on ne prend que la vidéo
+        'quiet': False, # Afficher les logs pour plus de détails 
     }
+    try:
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info_dict = ydl.extract_info(video_url, download=True)
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(video_url, download=True)
 
-        
-        
-        
-        # Retourner le chemin du fichier et le titre
-        file_path = ydl.prepare_filename(info_dict)
-        
-        return file_path # Retourne le chemin complet du fichier telecharge
+            
+            
+            
+            # Retourner le chemin du fichier et le titre
+            file_path = ydl.prepare_filename(info_dict)
+            
+            return file_path # Retourne le chemin complet du fichier telecharge
+    except yt_dlp.utils.DownloadError as e:
+        print(f"Download erro: {e}")
+        return None # Rétourner None en cas d'erreur de téléchargement
+    except Exception as e :
+        print(f"An unexpected error occured: {e}")
+        return None # Retourner None en cas d'erreur inattendu
 
 def videoData(video_url):
     ydl_opts = {
