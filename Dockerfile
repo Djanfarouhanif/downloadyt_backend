@@ -3,7 +3,7 @@ FROM python:3.10-slim
 
 # Mise à jour et installation de FFmpeg 
 RUN apt-get update && \ 
-            \ apt-get install -y \
+             apt-get install -y \
             apt-utils \
             ffmpeg  \ 
             && rm -rf /var/lib/apt/lists/*
