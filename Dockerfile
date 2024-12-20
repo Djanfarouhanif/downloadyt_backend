@@ -1,26 +1,23 @@
-FROM python:3
+FROM python:3.9-slim
 
-ENV PYTHONBUFFERD 1
-
-ENV PYTHONDONTWRTBYTECODE 1
-
-RUN mkdir /app
+# Installation des dépendances système avec les flags recommandés
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ffmpeg \
+    build-essential \
+    python3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-COPY . /app/
+# Mise à jour de pip en tant que root avec --no-cache-dir
+RUN pip install --no-cache-dir --upgrade pip
 
-RUN python -m venv /env
+# Copie et installation des dépendances
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PATH = '/env/bin/:$PATH'
+COPY . .
+RUN chmod +x /app/entrypoint.sh
 
-COPY entrypoint.sh /app/entrypoint.sh
-
-RUN python -m pip install --upgrade pip
-
-COPY requirements.txt /app/
-
-RUN pip install -r requirements.txt
-
-
-
+EXPOSE 8000
