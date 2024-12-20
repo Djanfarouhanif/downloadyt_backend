@@ -9,7 +9,7 @@ RUN apt-get update && \ apt-get install -y ffmpeg
 WORKDIR /app 
 
 # Copieer les fichiers de mon projet 
-COPY ./app .     
+COPY ./app . 
  
 # Installation des dépendances  
 
