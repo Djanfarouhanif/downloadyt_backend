@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-# Installation des dépendances système avec les flags recommandés
+# Installation des dépendances système
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ffmpeg \
     build-essential \
@@ -10,14 +10,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 WORKDIR /app
 
-# Mise à jour de pip en tant que root avec --no-cache-dir
+# Mise à jour de pip
 RUN pip install --no-cache-dir --upgrade pip
 
-# Copie et installation des dépendances
+# Copie et installation des dépendances depuis requirements.txt
 COPY requirements.txt .
-RUN pip install  -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copie du code de l'application dans le conteneur
 COPY . .
-RUN chmod +x /app/entrypoint.sh
 
-EXPOSE 8000
+# Commande de démarrage par défaut
+CMD ["gunicorn", "django_invoice.wsgi:application", "--bind", "0.0.0.0:8000"]
