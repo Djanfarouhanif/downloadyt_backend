@@ -6,7 +6,7 @@ import os
 def download_video(video_url, output_path='video/'):  
     try: 
         # Créer le dossier de sortie s'il n'existe pas 
-        os.makdirs(output_path, exist_ok=True)
+        os.makedirs(output_path, exist_ok=True)
 
         # charger la video 
          
