@@ -1,24 +1,22 @@
-import yt_dlp
-from pytube import YouTube
+# import yt_dlp
+# from pytube import YouTube
 import os 
+from pytubefix import Youtube
+from pytubefix.cli import on_progress
 
 import requests
 
-def download_video(video_url, output_path='video/video.mp4'):
-    try:
-        api_url = f"https://api.savefrom.net/savefrom.php?url={video_url}"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            with open(output_path, 'wb') as file:
-                file.write(response.content)
-            print(f"Video downloaded to: {output_path}")
-            return output_path
-        else:
-            print("Failed to fetch the video")
-            return None
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        return None
+url = 'https://youtu.be/MmhDEhhWp6M?si=4BLvvi9NXsIUGLBH'
+
+def download_video(video_url, output_path='video/'):
+    yt = Youtube(video_url, on_progress_callback= on_progress)
+    print(yt_t)
+
+    ys = yt.streams.get_highest_resolution()
+    ys.download()
+
+
+download_video(url)
 
 # Fonction pour télécharger une video Youtube 
 # def download_video(video_url, output_path='video/'):  
