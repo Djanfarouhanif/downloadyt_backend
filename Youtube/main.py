@@ -7,7 +7,7 @@ import requests
 
 url = 'https://youtu.be/MmhDEhhWp6M?si=4BLvvi9NXsIUGLBH'
 
-def download_video(video_url, output_path='video/'):
+def download_video(video_url, output_path='videos/'):
     yt = YouTube(video_url, on_progress_callback= on_progress)
    
 
@@ -17,7 +17,7 @@ def download_video(video_url, output_path='video/'):
     return file_path
 
 
-download_video(url)
+
 
 # Fonction pour télécharger une video Youtube 
 # def download_video(video_url, output_path='video/'):  
