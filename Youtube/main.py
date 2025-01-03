@@ -1,6 +1,6 @@
 # from pytube import YouTube
 import os 
-from pytubefix import Youtube
+from pytubefix import YouTube
 from pytubefix.cli import on_progress
 
 import requests
@@ -8,11 +8,13 @@ import requests
 url = 'https://youtu.be/MmhDEhhWp6M?si=4BLvvi9NXsIUGLBH'
 
 def download_video(video_url, output_path='video/'):
-    yt = Youtube(video_url, on_progress_callback= on_progress)
-    print(yt_t)
+    yt = YouTube(video_url, on_progress_callback= on_progress)
+   
 
     ys = yt.streams.get_highest_resolution()
-    ys.download()
+    file_path = ys.download(output_path)
+    
+    return file_path
 
 
 download_video(url)
